@@ -4,8 +4,7 @@
 \alias{calc_sci}
 \title{calc_sci}
 \usage{
-calc_sci(img = img, vox = vox, hcdf = hcdf,
-  loadings = sci_loadings[, 1])
+calc_sci(img, vox, normdf = NULL, weights = NULL)
 }
 \arguments{
 \item{img}{brain image to calculate the sci on.}
@@ -13,12 +12,12 @@ calc_sci(img = img, vox = vox, hcdf = hcdf,
 \item{vox}{N x 3 - matrix of voxel coordinates to use for regions of
 interest.}
 
-\item{hcdf}{N x 2 - data frame to use for normalization.}
+\item{normdf}{N x 2 - data frame to use for normalization.}
 
-\item{loadings}{N x 1 - vector to use for weighting.}
+\item{weights}{N x 1 - vector to use for weighting.}
 }
 \description{
-This function calculates the striatal connectivity index.
+This function calculates the striatal connectivity index (sci).
 }
 \examples{
 calc_sci()

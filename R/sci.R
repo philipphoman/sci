@@ -1,17 +1,17 @@
 #' calc_sci 
 #'
-#' This function calculates the striatal connectivity index.
+#' This function calculates the striatal connectivity index (sci).
 #' @param img brain image to calculate the sci on.
 #' @param vox N x 3 - matrix of voxel coordinates to use for regions of
 #'     interest.
-#' @param hcdf N x 2 - data frame to use for normalization.
-#' @param loadings N x 1 - vector to use for weighting.
+#' @param normdf N x 2 - data frame to use for normalization.
+#' @param weights N x 1 - vector to use for weighting.
 #' @keywords striatum, functional connectivity, correlation 
 #' @export
 #' @examples
 #' calc_sci()
-calc_sci <- function(img=img, vox=vox, hcdf=hcdf,
-                     loadings=sci_loadings[, 1]) {
+calc_sci <- function(img, vox, normdf=NULL,
+                     weights=NULL) {
   #
   # calculate the striatal connectivity index
   
@@ -20,17 +20,25 @@ calc_sci <- function(img=img, vox=vox, hcdf=hcdf,
                             function(x) extract_roi_val(x, img=img)))
 
   # normalize and weight the raw sci values
-  valsz <- normalize_sci(vals, hcdf) * sci_loadings[, 1]
+  if (!is.null(normdf)) {
+    valsz <- normalize_sci(vals, normdf)
+  } else {
+    valsz <- vals
+  }
+  
+  if (!is.null(weights)) {
+    valsz <- valsz * weights
+  } 
 
   sci <- sum(valsz)
   mu_sci <- sci/nrow(vox)
   return(list(sci, mu_sci))
 }
 
-normalize_sci <- function(vals, hcdf) {
+normalize_sci <- function(vals, normdf) {
   #
   # normalize the sci values
-  valsz <- (vals-hcdf$mean)/hcdf$sd
+  valsz <- (vals-normdf$mean)/normdf$sd
   return(valsz)
 }
 
@@ -64,7 +72,7 @@ has_afni <- function() {
   cmd <- paste0("export PATH=$PATH:", pth, " && which 3dmaskave")
   out <- system(cmd, intern=FALSE)
   #print(out)
-  if ((out==1)) {
+  if (out==1) {
     return(FALSE)
   }
   else {
@@ -73,9 +81,26 @@ has_afni <- function() {
 }
 
 
+#' extract_roi_val 
+#'
+#' This function extracts the roi value of a given coordinate (range)
+#' using AFNI's 3dmaskave. It is the workhorse of the sci-package.
+#' @param vox N x 3 - matrix of voxel coordinates to use for regions of
+#'     interest.
+#' @param img - a brain image filename.
+#' @keywords voxel, extraction, brain imaging, AFNI
+#' @export
+#' @examples
+#' extract_roi_val()
 extract_roi_val <- function(vox, img) {
   #
   # extract voxel roi value using afni's 3dmaskave
+
+  # check if afni is installed
+  if (!has_afni()) {
+    cat("afni not installed!\n")
+    return(-1)
+  }
 
   afni_3dmaskave <- "/usr/local/opt/afni/3dmaskave -ibox"
   rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
