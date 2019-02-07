@@ -52,8 +52,10 @@ extract_roi_val <- function(vox, img) {
   # extract voxel roi value using afni's 3dmaskave
 
   afni_3dmaskave <- "/usr/local/opt/afni/3dmaskave -ibox"
-  cmd <- paste0(afni_3dmaskave, " ", vox[1], " ", vox[2], " ", vox[3],
-                " ", img)
+  rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
+                vox[2]-1, ":", vox[2]+1, " ",
+                vox[3]-1, ":", vox[3]+1, " ")
+  cmd <- paste0(afni_3dmaskave, rng, img)
   #print(cmd)
   # run the command
   out <- system(cmd, intern=TRUE)
