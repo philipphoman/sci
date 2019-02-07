@@ -63,7 +63,7 @@ has_afni <- function() {
 
   cmd <- paste0("export PATH=$PATH:", pth, " && which 3dmaskave")
   out <- system(cmd, intern=TRUE)
-  if (out=="") {
+  if (!out=="") {
     return(TRUE)
   }
   else {
