@@ -182,7 +182,7 @@ has_afni <- function() {
 which_afni <- function() {
   #
   # returns the path to afni
-  pth <- system("which afni", intern=TRUE)
+  pth <- system("which 3dmaskave", intern=TRUE)
   return(pth)
 }
 
