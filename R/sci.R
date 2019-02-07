@@ -195,7 +195,7 @@ which_afni <- function() {
 #' @export
 #' @examples
 #' parse_afni_cmd(params)
-pars_afni_cmd <- function(params=" -ibox") {
+parse_afni_cmd <- function(params=" -ibox") {
   #
   # returns the path to afni
   return(paste0(which_afni(), params))
