@@ -47,6 +47,13 @@ mni2vox <- function(mni) {
   return(vox)
 }
 
+#' has_afni
+#'
+#' This function checks if afni is installed (at the standard location).
+#' @keywords AFNI, neuroimaging, UNIX 
+#' @export
+#' @examples
+#' has_afni()
 has_afni <- function() {
   #
   # checks if afni is installed
