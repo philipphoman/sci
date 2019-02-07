@@ -27,7 +27,7 @@ calc_sci <- function(img, vox, normdf=NULL,
   }
   
   # weight by whatever is given as weights (defaults to 1)
-  valszw <- weight_sci(valsz) 
+  valszw <- weight_sci(valsz, weights) 
 
   # compute the two flavors of sci
   sci <- sum(valszw)
