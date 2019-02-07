@@ -82,10 +82,10 @@ is_low <- function(sci, cutoff=3.8) {
 load_params <- function() {
   #
   # loads the default sci parameters
-  mni <- read_csv(system.file("data", "sci_mni.csv", package="sci"))
-  weights <- read_csv(system.file("data", "sci_weights.csv",
+  mni <- read.csv(system.file("data", "sci_mni.csv", package="sci"))
+  weights <- read.csv(system.file("data", "sci_weights.csv",
                                   package="sci"))
-  normdf <- read_csv(system.file("data", "sci_norm.csv", package="sci"))
+  normdf <- read.csv(system.file("data", "sci_norm.csv", package="sci"))
 }
 
 
