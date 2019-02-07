@@ -3,6 +3,7 @@
 export(calc_sci)
 export(extract_roi_val)
 export(has_afni)
+export(load_params)
 export(mni2vox)
 export(normalize_sci)
 export(weight_sci)

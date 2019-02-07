@@ -32,8 +32,32 @@ calc_sci <- function(img, vox, normdf=NULL,
   # compute the two flavors of sci
   sci <- sum(valszw)
   mu_sci <- sci/nrow(vox)
-  return(list("SCI"=sci, "SCI_r"=mu_sci))
+  return(list("sci"=sci, "sci_r"=mu_sci))
 }
+
+is_high <- function(sci, type="sci") {
+  #
+  # tests if the sci "is high"
+}
+
+#' load_params
+#'
+#' This function loads the default parameters needed for the
+#' SCI calculation, including the default 91 MNI coordinates, the
+#' normalization data frame, and the weights vector.
+#' @keywords striatum, functional connectivity, correlation 
+#' @export
+#' @examples
+#' load_params()
+load_params <- function() {
+  #
+  # loads the default sci parameters
+  mni <- read_csv(system.file("data", "sci_mni.csv", package="sci"))
+  weights <- read_csv(system.file("data", "sci_weights.csv",
+                                  package="sci"))
+  normdf <- read_csv(system.file("data", "sci_norm.csv", package="sci"))
+}
+
 
 #' normalize_sci 
 #'
