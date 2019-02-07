@@ -1,6 +1,7 @@
 #' calc_sci 
 #'
 #' This function calculates the striatal connectivity index (sci).
+#'
 #' @param img brain image to calculate the sci on.
 #' @param vox N x 3 matrix of voxel coordinates to use for regions of
 #'     interest.
