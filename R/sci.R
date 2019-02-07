@@ -212,7 +212,7 @@ extract_roi_val <- function(vox, img) {
 
   afni_3dmaskave <- paste0(ifelse(file.exists(afni_bin),
                            "/usr/local/opt/afni/3dmaskave",
-                           which_afni()), " -ibox")
+                           gsub("[\r\n]", "", which_afni())), " -ibox")
 
   rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
                 vox[2]-1, ":", vox[2]+1, " ",
