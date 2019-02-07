@@ -86,6 +86,7 @@ load_params <- function() {
   weights <- read.csv(system.file("data", "sci_weights.csv",
                                   package="sci"))
   normdf <- read.csv(system.file("data", "sci_norm.csv", package="sci"))
+  return(list("mni"=mni, "weights"=weights, "normdf"=normdf))
 }
 
 
