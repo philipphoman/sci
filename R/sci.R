@@ -186,6 +186,22 @@ which_afni <- function() {
   return(pth)
 }
 
+#' parse_afni_cmd
+#'
+#' This function returns the full AFNI command 3dmaskave
+#'
+#' @param params string of options passed to 3dmaskave (defaults to
+#'     -ibox)
+#' @export
+#' @examples
+#' parse_afni_cmd(params)
+pars_afni_cmd <- function(params=" -ibox") {
+  #
+  # returns the path to afni
+  return(paste0(which_afni(), params))
+}
+
+
 #' extract_roi_val 
 #'
 #' This function extracts the roi value of a given coordinate (range)
