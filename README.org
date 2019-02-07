@@ -1,4 +1,4 @@
-* Striatal connectivity index  
+* Striatal connectivity index (SCI)  
 ** Preamble                                                     :ignore:
 *** General comments                                                 :ignore:
 # ----------------------------------------------------------------------
@@ -151,3 +151,4 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base
 #+end_example
+

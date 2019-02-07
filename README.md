@@ -1,5 +1,5 @@
 
-# Striatal connectivity index
+# Striatal connectivity index (SCI)
 
 
 
