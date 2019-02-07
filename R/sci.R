@@ -11,7 +11,7 @@
 #' @examples
 #' calc_sci()
 calc_sci <- function(img, vox, normdf=NULL,
-                     weights=NULL) {
+                     weights=1) {
   #
   # calculate the striatal connectivity index
   
@@ -26,21 +26,50 @@ calc_sci <- function(img, vox, normdf=NULL,
     valsz <- vals
   }
   
-  if (!is.null(weights)) {
-    valsz <- valsz * weights
-  } 
+  # weight by whatever is given as weights (defaults to 1)
+  valszw <- weight_sci(valsz) 
 
-  sci <- sum(valsz)
+  # compute the two flavors of sci
+  sci <- sum(valszw)
   mu_sci <- sci/nrow(vox)
-  return(list(sci, mu_sci))
+  return(list("SCI"=sci, "SCI_r"=mu_sci))
 }
 
+#' normalize_sci 
+#'
+#' This function normalizes the N x 1 individual SCI connectivity values
+#' using a N x 2 normalization data frame (which should comprise columns
+#' 'mean' and 'sd').
+#' @keywords normalization, striatal connectivity
+#' @param vals - individual raw sci connectivity values
+#' @param normdf - normalization data frame
+#' @export
+#' @examples
+#' normalize_sci(vals, normdf)
 normalize_sci <- function(vals, normdf) {
   #
   # normalize the sci values
   valsz <- (vals-normdf$mean)/normdf$sd
   return(valsz)
 }
+
+#' weight_sci 
+#'
+#' This function weights the N x 1 individual SCI connectivity values
+#' using a N x 1 vector of weights.
+#' @keywords striatal connectivity, weighting
+#' @param vals - individual sci connectivity values
+#' @param weights - vector of weights
+#' @export
+#' @examples
+#' weight_sci(vals, weights)
+weight_sci <- function(vals, weights) {
+  #
+  # weight the sci values
+  valsw <- vals * weights
+  return(valsw)
+}
+
 
 #' mni2vox
 #'
@@ -86,7 +115,6 @@ has_afni <- function() {
     return(TRUE)
   }
 }
-
 
 #' extract_roi_val 
 #'

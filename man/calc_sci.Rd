@@ -4,7 +4,7 @@
 \alias{calc_sci}
 \title{calc_sci}
 \usage{
-calc_sci(img, vox, normdf = NULL, weights = NULL)
+calc_sci(img, vox, normdf = NULL, weights = 1)
 }
 \arguments{
 \item{img}{brain image to calculate the sci on.}
