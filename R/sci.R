@@ -47,6 +47,24 @@ mni2vox <- function(mni) {
   return(vox)
 }
 
+has_afni <- function() {
+  #
+  # checks if afni is installed
+
+  # standard path to afni
+  pth <- "/usr/local/opt/afni"
+
+  cmd <- paste0("export PATH=$PATH:", pth, " && which 3dmaskave")
+  out <- system(cmd, intern=TRUE)
+  if (!is.empty(out)) {
+    return(TRUE)
+  }
+  else {
+    return(FALSE)
+  }
+}
+
+
 extract_roi_val <- function(vox, img) {
   #
   # extract voxel roi value using afni's 3dmaskave
