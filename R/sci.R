@@ -35,9 +35,39 @@ calc_sci <- function(img, vox, normdf=NULL,
   return(list("sci"=sci, "sci_r"=mu_sci))
 }
 
-is_high <- function(sci, type="sci") {
+#' is_high
+#'
+#' This function tests if a given SCI is higher than the cutoff value
+#' (which defaults to 3.8 as in Sarpal 2016, Am J Psychiatry).
+#
+#' @param sci - striatal connectivity index 
+#' @param cutoff - striatal connectivity index cutoff (default is 3.8) 
+#' @keywords striatum, functional connectivity, correlation 
+#' @export
+#' @examples
+#' is_high(sci)
+is_high <- function(sci, cutoff=3.8) {
   #
-  # tests if the sci "is high"
+  # tests if the sci is higher than the cutoff 
+  return(sci > cutoff)
+}
+
+#' is_low
+#'
+#' This function tests if a given SCI is equal or lower than the
+#' cutoff value (which defaults to 3.8 as in Sarpal 2016,
+#' Am J Psychiatry).
+#
+#' @param sci - striatal connectivity index 
+#' @param cutoff - striatal connectivity index cutoff (default is 3.8) 
+#' @keywords striatum, functional connectivity, correlation 
+#' @export
+#' @examples
+#' is_low(sci)
+is_low <- function(sci, cutoff=3.8) {
+  #
+  # tests if the sci is equal or lower than the cutoff
+  return(!is_high(sci=sci, cutoff=cutoff))
 }
 
 #' load_params
