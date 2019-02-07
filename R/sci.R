@@ -42,7 +42,14 @@ normalize_sci <- function(vals, normdf) {
   return(valsz)
 }
 
-
+#' mni2vox
+#'
+#' This function transforms MNI coordinates into voxel coordinates.
+#' @keywords neuroimaging, MNI space, voxel space
+#' @param mni - MNI coordinates
+#' @export
+#' @examples
+#' mni2vox(mni)
 mni2vox <- function(mni) {
   #
   # transform mni 2 voxel coordinates
