@@ -2,10 +2,10 @@
 #'
 #' This function calculates the striatal connectivity index (sci).
 #' @param img brain image to calculate the sci on.
-#' @param vox N x 3 - matrix of voxel coordinates to use for regions of
+#' @param vox N x 3 matrix of voxel coordinates to use for regions of
 #'     interest.
-#' @param normdf N x 2 - data frame to use for normalization.
-#' @param weights N x 1 - vector to use for weighting.
+#' @param normdf N x 2 data frame to use for normalization.
+#' @param weights N x 1 vector to use for weighting.
 #' @keywords striatum, functional connectivity, correlation 
 #' @export
 #' @examples
@@ -40,8 +40,8 @@ calc_sci <- function(img, vox, normdf=NULL,
 #' This function tests if a given SCI is higher than the cutoff value
 #' (which defaults to 3.8 as in Sarpal 2016, Am J Psychiatry).
 #
-#' @param sci - striatal connectivity index 
-#' @param cutoff - striatal connectivity index cutoff (default is 3.8) 
+#' @param sci striatal connectivity index 
+#' @param cutoff striatal connectivity index cutoff (default is 3.8) 
 #' @keywords striatum, functional connectivity, correlation 
 #' @export
 #' @examples
@@ -58,8 +58,8 @@ is_high <- function(sci, cutoff=3.8) {
 #' cutoff value (which defaults to 3.8 as in Sarpal 2016,
 #' Am J Psychiatry).
 #
-#' @param sci - striatal connectivity index 
-#' @param cutoff - striatal connectivity index cutoff (default is 3.8) 
+#' @param sci striatal connectivity index 
+#' @param cutoff striatal connectivity index cutoff (default is 3.8) 
 #' @keywords striatum, functional connectivity, correlation 
 #' @export
 #' @examples
@@ -96,8 +96,8 @@ load_params <- function() {
 #' using a N x 2 normalization data frame (which should comprise columns
 #' 'mean' and 'sd').
 #' @keywords normalization, striatal connectivity
-#' @param vals - individual raw sci connectivity values
-#' @param normdf - normalization data frame
+#' @param vals individual raw sci connectivity values
+#' @param normdf normalization data frame
 #' @export
 #' @examples
 #' normalize_sci(vals, normdf)
@@ -113,8 +113,8 @@ normalize_sci <- function(vals, normdf) {
 #' This function weights the N x 1 individual SCI connectivity values
 #' using a N x 1 vector of weights.
 #' @keywords striatal connectivity, weighting
-#' @param vals - individual sci connectivity values
-#' @param weights - vector of weights
+#' @param vals individual sci connectivity values
+#' @param weights vector of weights
 #' @export
 #' @examples
 #' weight_sci(vals, weights)
@@ -130,7 +130,7 @@ weight_sci <- function(vals, weights) {
 #'
 #' This function transforms MNI coordinates into voxel coordinates.
 #' @keywords neuroimaging, MNI space, voxel space
-#' @param mni - MNI coordinates
+#' @param mni MNI coordinates
 #' @export
 #' @examples
 #' mni2vox(mni)
@@ -175,9 +175,9 @@ has_afni <- function() {
 #'
 #' This function extracts the roi value of a given coordinate (range)
 #' using AFNI's 3dmaskave. It is the workhorse of the sci-package.
-#' @param vox N x 3 - matrix of voxel coordinates to use for regions of
+#' @param vox N x 3 matrix of voxel coordinates to use for regions of
 #'     interest.
-#' @param img - a brain image filename.
+#' @param img a brain image filename.
 #' @keywords voxel, extraction, brain imaging, AFNI
 #' @export
 #' @examples

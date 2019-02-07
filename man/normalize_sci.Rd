@@ -7,9 +7,9 @@
 normalize_sci(vals, normdf)
 }
 \arguments{
-\item{vals}{- individual raw sci connectivity values}
+\item{vals}{individual raw sci connectivity values}
 
-\item{normdf}{- normalization data frame}
+\item{normdf}{normalization data frame}
 }
 \description{
 This function normalizes the N x 1 individual SCI connectivity values

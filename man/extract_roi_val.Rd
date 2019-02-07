@@ -7,10 +7,10 @@
 extract_roi_val(vox, img)
 }
 \arguments{
-\item{vox}{N x 3 - matrix of voxel coordinates to use for regions of
+\item{vox}{N x 3 matrix of voxel coordinates to use for regions of
 interest.}
 
-\item{img}{- a brain image filename.}
+\item{img}{a brain image filename.}
 }
 \description{
 This function extracts the roi value of a given coordinate (range)

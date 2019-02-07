@@ -9,12 +9,12 @@ calc_sci(img, vox, normdf = NULL, weights = 1)
 \arguments{
 \item{img}{brain image to calculate the sci on.}
 
-\item{vox}{N x 3 - matrix of voxel coordinates to use for regions of
+\item{vox}{N x 3 matrix of voxel coordinates to use for regions of
 interest.}
 
-\item{normdf}{N x 2 - data frame to use for normalization.}
+\item{normdf}{N x 2 data frame to use for normalization.}
 
-\item{weights}{N x 1 - vector to use for weighting.}
+\item{weights}{N x 1 vector to use for weighting.}
 }
 \description{
 This function calculates the striatal connectivity index (sci).

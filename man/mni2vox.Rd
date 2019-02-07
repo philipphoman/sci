@@ -7,7 +7,7 @@
 mni2vox(mni)
 }
 \arguments{
-\item{mni}{- MNI coordinates}
+\item{mni}{MNI coordinates}
 }
 \description{
 This function transforms MNI coordinates into voxel coordinates.

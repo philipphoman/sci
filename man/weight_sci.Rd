@@ -7,9 +7,9 @@
 weight_sci(vals, weights)
 }
 \arguments{
-\item{vals}{- individual sci connectivity values}
+\item{vals}{individual sci connectivity values}
 
-\item{weights}{- vector of weights}
+\item{weights}{vector of weights}
 }
 \description{
 This function weights the N x 1 individual SCI connectivity values

@@ -7,9 +7,9 @@
 is_low(sci, cutoff = 3.8)
 }
 \arguments{
-\item{sci}{- striatal connectivity index}
+\item{sci}{striatal connectivity index}
 
-\item{cutoff}{- striatal connectivity index cutoff (default is 3.8)}
+\item{cutoff}{striatal connectivity index cutoff (default is 3.8)}
 }
 \description{
 This function tests if a given SCI is equal or lower than the
