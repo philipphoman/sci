@@ -172,6 +172,20 @@ has_afni <- function() {
   }
 }
 
+#' which_afni
+#'
+#' This function returns the path to AFNI
+#'
+#' @export
+#' @examples
+#' which_afni()
+which_afni <- function() {
+  #
+  # returns the path to afni
+  pth <- system("which afni", intern=TRUE)
+  return(pth)
+}
+
 #' extract_roi_val 
 #'
 #' This function extracts the roi value of a given coordinate (range)
@@ -193,7 +207,13 @@ extract_roi_val <- function(vox, img) {
     return(-1)
   }
 
-  afni_3dmaskave <- "/usr/local/opt/afni/3dmaskave -ibox"
+  # defaut afni location
+  afni_bin <- "/usr/local/opt/afni/afni"
+
+  afni_3dmaskave <- paste0(ifelse(file.exists(afni_bin),
+                           "/usr/local/opt/afni/3dmaskave",
+                           which_afni()), " -ibox")
+
   rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
                 vox[2]-1, ":", vox[2]+1, " ",
                 vox[3]-1, ":", vox[3]+1, " ")
