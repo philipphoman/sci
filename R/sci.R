@@ -147,6 +147,16 @@ mni2vox <- function(mni) {
   return(vox)
 }
 
+#' add_afni_pth_cmd
+#'
+#' This function adds the standard AFNI path to PATH
+#' @export
+add_afni_pth_cmd <- function(pth="/usr/local/opt/afni") {
+  #
+  # adds the standard afni path to PATH
+  return(paste0("PATH=$PATH:", pth))
+}
+
 #' has_afni
 #'
 #' This function checks if afni is installed (at the standard location).
@@ -182,7 +192,8 @@ has_afni <- function() {
 which_afni <- function() {
   #
   # returns the path to afni
-  pth <- system("which 3dmaskave", intern=TRUE)
+  pth <- system(paste0(add_afni_pth_cmd(), " && which 3dmaskave"),
+                       intern=TRUE)
   return(pth)
 }
 
