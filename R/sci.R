@@ -55,7 +55,7 @@ extract_roi_val <- function(vox, img) {
   rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
                 vox[2]-1, ":", vox[2]+1, " ",
                 vox[3]-1, ":", vox[3]+1, " ")
-  cmd <- paste0(afni_3dmaskave, rng, img)
+  cmd <- paste0(afni_3dmaskave, " ", rng, img)
   #print(cmd)
   # run the command
   out <- system(cmd, intern=TRUE)
