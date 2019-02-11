@@ -2,23 +2,41 @@
 #'
 #' This function calculates the striatal connectivity index (sci).
 #'
-#' @param img brain image to calculate the sci on.
-#' @param vox N x 3 matrix of voxel coordinates to use for regions of
-#'     interest.
+#' @param imgdf K x 2 data frame of K seeds and their respective brain
+#'     images to calculate the SCI on.
+#' @param voxdf N x 4 data frame of K seeds and N voxel coordinates.
 #' @param normdf N x 2 data frame to use for normalization.
 #' @param weights N x 1 vector to use for weighting.
-#' @keywords striatum, functional connectivity, correlation 
+#' @keywords striatum, functional connectivity, correlation
 #' @export
 #' @examples
 #' calc_sci()
-calc_sci <- function(img, vox, normdf=NULL,
+calc_sci <- function(imgdf, voxdf, normdf=NULL,
                      weights=1) {
   #
   # calculate the striatal connectivity index
-  
+
+  # get all seeds
+  seeds <- unique(voxdf$seed)
+
+  # get all seeds' connections
+  connlist <- lapply(seeds, function(x) get_seed_connection(voxdf, x))
+
+  lapply(connlist, function(x) extract_roi_val())
+
+  #for (i in 1:nrow(voxdf)) {
+  #  extract_roi_val(voxdf[i, 2:4], imgdf$img[imgdf$seed==voxdf[i, 1]])
+  #}
+
   # extract all 91 values from the rois
-  vals <- as.numeric(sapply(as.list(data.frame(t(vox))),
-                            function(x) extract_roi_val(x, img=img)))
+  vals <- as.numeric(sapply(seeds, function(x) {
+    sapply(as.list(data.frame(t(get_seed_connection(voxdf, x)))),
+           function(y) extract_roi_val(y, imgdf$img[imgdf$seed==x]))
+  }))
+
+    
+  #vals <- as.numeric(sapply(as.list(data.frame(t(vox))),
+  #                          function(x) extract_roi_val(x, img=img)))
 
   # normalize and weight the raw sci values
   if (!is.null(normdf)) {
@@ -35,6 +53,22 @@ calc_sci <- function(img, vox, normdf=NULL,
   mu_sci <- sci/nrow(vox)
   return(list("sci"=sci, "sci_r"=mu_sci))
 }
+
+#' get_seed_connections
+#'
+#' This function returns a K x 3 matrix of roi coordinates for a seed
+#' region
+#'
+#' @param mnidf N x 4 data frame of regions of seed regions and their
+#'     respective connectivity coordinates
+#' @param seed a string indicating the seed for which connectivity
+#'     coordinates should be returned
+#' @keywords functional connectivity, seed regions
+#' @export
+get_seed_connections <- function(mnidf, seed) {
+  return(as.matrix(mnidf[mnidf$seed==seed, 2:4]))
+}
+
 
 #' is_high
 #'
