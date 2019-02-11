@@ -28,7 +28,7 @@ calc_sci <- function(imgdf, mnidf, normdf=NULL,
 
   # extract all 91 values from the rois
   vals <- as.numeric(sapply(seeds, function(x) {
-    sapply(as.list(data.frame(t(get_seed_connections(voxdf, x)))),
+    sapply(as.list(data.frame(t(get_seed_connections(mnidf, x)))),
            function(y) extract_roi_val(mni2vox(y),
                                        imgdf$img[imgdf$seed==x]))
   }))
