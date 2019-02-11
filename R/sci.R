@@ -130,8 +130,11 @@ load_params <- function() {
   #                                     package="sci"))
   seeds <- unique(mnidf$seed)
 
-  imgdf <- data.frame(seed=seeds, img=system.file("data/nii",
-                                      paste0(seeds, ".nii.gz")))
+  imgdf <- data.frame(seed=seeds,
+                      img=system.file("data/nii",
+                                      paste0(seeds, ".nii.gz"),
+                                      package="sci"))
+                                                  
 
   return(list("mnidf"=mnidf, "weights"=weights, "normdf"=normdf,
               "imgdf"=imgdf))
