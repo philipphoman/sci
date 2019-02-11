@@ -4,25 +4,23 @@
 #'
 #' @param imgdf K x 2 data frame of K seeds and their respective brain
 #'     images to calculate the SCI on.
-#' @param voxdf N x 4 data frame of K seeds and N voxel coordinates.
+#' @param mnidf N x 4 data frame of K seeds and N MNI coordinates.
 #' @param normdf N x 2 data frame to use for normalization.
 #' @param weights N x 1 vector to use for weighting.
 #' @keywords striatum, functional connectivity, correlation
 #' @export
 #' @examples
 #' calc_sci()
-calc_sci <- function(imgdf, voxdf, normdf=NULL,
+calc_sci <- function(imgdf, mnidf, normdf=NULL,
                      weights=1) {
   #
   # calculate the striatal connectivity index
 
   # get all seeds
-  seeds <- unique(voxdf$seed)
+  seeds <- unique(mnidf$seed)
 
   # get all seeds' connections
-  connlist <- lapply(seeds, function(x) get_seed_connection(voxdf, x))
-
-  lapply(connlist, function(x) extract_roi_val())
+  #connlist <- lapply(seeds, function(x) get_seed_connection(mnidf, x))
 
   #for (i in 1:nrow(voxdf)) {
   #  extract_roi_val(voxdf[i, 2:4], imgdf$img[imgdf$seed==voxdf[i, 1]])
@@ -31,7 +29,8 @@ calc_sci <- function(imgdf, voxdf, normdf=NULL,
   # extract all 91 values from the rois
   vals <- as.numeric(sapply(seeds, function(x) {
     sapply(as.list(data.frame(t(get_seed_connection(voxdf, x)))),
-           function(y) extract_roi_val(y, imgdf$img[imgdf$seed==x]))
+           function(y) extract_roi_val(mni2vox(y),
+                                       imgdf$img[imgdf$seed==x]))
   }))
 
     

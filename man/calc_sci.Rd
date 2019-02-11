@@ -4,13 +4,13 @@
 \alias{calc_sci}
 \title{calc_sci}
 \usage{
-calc_sci(imgdf, voxdf, normdf = NULL, weights = 1)
+calc_sci(imgdf, mnidf, normdf = NULL, weights = 1)
 }
 \arguments{
 \item{imgdf}{K x 2 data frame of K seeds and their respective brain
 images to calculate the SCI on.}
 
-\item{voxdf}{N x 4 data frame of K seeds and N voxel coordinates.}
+\item{mnidf}{N x 4 data frame of K seeds and N MNI coordinates.}
 
 \item{normdf}{N x 2 data frame to use for normalization.}
 
