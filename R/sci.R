@@ -317,7 +317,7 @@ extract_roi_val <- function(vox, img) {
 #' provided with the package
 #' @export
 run_example <- function() {
-  params <- load_params
+  params <- load_params()
   out <- calc_sci(params$imgdf, params$mnidf, params$normdf,
                   params$weights)
   return(out)
