@@ -131,10 +131,11 @@ load_params <- function() {
   seeds <- unique(mnidf$seed)
 
   imgdf <- data.frame(seed=seeds,
-                      img=system.file("data/nii",
+                      img=system.file("data/nii/2mm",
                                       paste0(seeds, ".nii.gz"),
                                       package="sci"))
                                                   
+  sapply(imgdf$img, function(x) system(paste0("gunzip ", x))) 
 
   return(list("mnidf"=mnidf, "weights"=weights, "normdf"=normdf,
               "imgdf"=imgdf))
