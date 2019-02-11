@@ -9,7 +9,8 @@ load_params()
 \description{
 This function loads the default parameters needed for the
 SCI calculation, including the default 91 MNI coordinates, the
-normalization data frame, and the weights vector.
+normalization data frame, the weights vector, and an illustrative
+set of 12 whole brain images for each seed.
 }
 \examples{
 load_params()

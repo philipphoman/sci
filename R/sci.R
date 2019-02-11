@@ -27,7 +27,7 @@ calc_sci <- function(imgdf, mnidf, normdf=NULL,
   #}
 
   # extract all 91 values from the rois
-  vals <- as.numeric(sapply(seeds, function(x) {
+  vals <- unlist(lapply(seeds, function(x) {
     sapply(as.list(data.frame(t(get_seed_connections(mnidf, x)))),
            function(y) extract_roi_val(mni2vox(y),
                                        imgdf$img[imgdf$seed==x]))
@@ -49,7 +49,7 @@ calc_sci <- function(imgdf, mnidf, normdf=NULL,
 
   # compute the two flavors of sci
   sci <- sum(valszw)
-  mu_sci <- sci/nrow(vox)
+  mu_sci <- sci/nrow(mnidf)
   return(list("sci"=sci, "sci_r"=mu_sci))
 }
 
@@ -108,7 +108,8 @@ is_low <- function(sci, cutoff=3.8) {
 #'
 #' This function loads the default parameters needed for the
 #' SCI calculation, including the default 91 MNI coordinates, the
-#' normalization data frame, and the weights vector.
+#' normalization data frame, the weights vector, and an illustrative
+#' set of 12 whole brain images for each seed.
 #' @keywords striatum, functional connectivity, correlation 
 #' @export
 #' @examples
@@ -116,11 +117,24 @@ is_low <- function(sci, cutoff=3.8) {
 load_params <- function() {
   #
   # loads the default sci parameters
-  mni <- read.csv(system.file("data", "sci_mni.csv", package="sci"))
-  weights <- read.csv(system.file("data", "sci_weights.csv",
-                                  package="sci"))
-  normdf <- read.csv(system.file("data", "sci_norm.csv", package="sci"))
-  return(list("mni"=mni, "weights"=weights, "normdf"=normdf))
+  mnidf <- readr::read_csv(system.file("data", "sci_mni.csv",
+                                     package="sci"))
+
+  weights <- readr::read_csv(system.file("data", "sci_weights.csv",
+                                         package="sci"))
+
+  normdf <- readr::read_csv(system.file("data", "sci_norm.csv",
+                                        package="sci"))
+
+  #imgdf <- readr::read_csv(system.file("data", "sci_img_example.csv",
+  #                                     package="sci"))
+  seeds <- unique(mnidf$seed)
+
+  imgdf <- data.frame(seed=seeds, img=system.file("data/nii",
+                                      paste0(seeds, ".nii.gz")))
+
+  return(list("mnidf"=mnidf, "weights"=weights, "normdf"=normdf,
+              "imgdf"=imgdf))
 }
 
 
@@ -172,11 +186,12 @@ mni2vox <- function(mni) {
   #
   # transform mni 2 voxel coordinates
 
-  vox <- matrix(ncol=3, nrow=nrow(mni))
+  #vox <- matrix(ncol=3, nrow=nrow(mni))
+  vox <- vector("numeric", 3)
   # recipe to transform mni coordinates to voxels
-  vox[, 1] <- (45-(mni[, 1]/2))
-  vox[, 2] <- (63+(mni[, 2]/2))
-  vox[, 3] <- (36+(mni[, 3]/2))
+  vox[1] <- (45-(mni[1]/2))
+  vox[2] <- (63+(mni[2]/2))
+  vox[3] <- (36+(mni[3]/2))
   return(vox)
 }
 
