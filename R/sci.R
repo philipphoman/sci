@@ -50,7 +50,8 @@ calc_sci <- function(imgdf, mnidf, normdf=NULL,
   # compute the two flavors of sci
   sci <- sum(valszw)
   mu_sci <- sci/nrow(mnidf)
-  return(list("sci"=sci, "sci_r"=mu_sci))
+  return(list("sci"=sci, "sci_r"=mu_sci, "valszw"=valszw,
+              "seed"=mnidf$seed))
 }
 
 #' get_seed_connections
@@ -135,7 +136,7 @@ load_params <- function() {
                                       paste0(seeds, ".nii.gz"),
                                       package="sci"))
                                                   
-  sapply(imgdf$img, function(x) system(paste0("gunzip ", x))) 
+  #sapply(imgdf$img, function(x) system(paste0("gunzip ", x))) 
 
   return(list("mnidf"=mnidf, "weights"=weights, "normdf"=normdf,
               "imgdf"=imgdf))
@@ -308,4 +309,16 @@ extract_roi_val <- function(vox, img) {
   val <- as.numeric(strsplit(out, split=" ")[[1]][1])
 
   return(val)
+}
+
+#' run_example
+#'
+#' This function runs the SCI calculation using the example parameters
+#' provided with the package
+#' @export
+run_example <- function() {
+  params <- load_params
+  out <- calc_sci(params$imgdf, params$mnidf, params$normdf,
+                  params$weights)
+  return(out)
 }
