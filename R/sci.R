@@ -371,12 +371,15 @@ read_nifti <- function(filename) {
 #' This function extracts a voxel value from a nifti object using the
 #' fmri library in R
 #' @param img nifti object
-#' @param vox voxel coordinates
+#' @param vox1r x voxel range 
+#' @param vox2r y voxel range 
+#' @param vox3r z voxel range 
+#' @param vox4r t voxel range 
 #' @export
-get_val_nifti <- function(img, voxrange) {
+get_val_nifti <- function(img, vox1r, vox2r, vox3r, vox4r) {
   #m <- fmri::extract.data(img)
   #val <- m[vox[1], vox[2], vox[3], 1]
-  r <- fmri::cutroi(img, voxrange)
+  r <- fmri::cutroi(img, vox1r, vox2r, vox3r, vox4r)
   val <- mean(fmri::extract.data(r))
   return(val)
 }

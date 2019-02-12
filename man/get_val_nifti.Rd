@@ -4,12 +4,18 @@
 \alias{get_val_nifti}
 \title{get_val_nifti}
 \usage{
-get_val_nifti(img, voxrange)
+get_val_nifti(img, vox1r, vox2r, vox3r, vox4r)
 }
 \arguments{
 \item{img}{nifti object}
 
-\item{vox}{voxel coordinates}
+\item{vox1r}{x voxel range}
+
+\item{vox2r}{y voxel range}
+
+\item{vox3r}{z voxel range}
+
+\item{vox4r}{t voxel range}
 }
 \description{
 This function extracts a voxel value from a nifti object using the
