@@ -298,13 +298,13 @@ extract_roi_val <- function(vox, img) {
   #afni_3dmaskave <- parse_afni_cmd()
 
 
-  voxrng <- c(
-  ((vox[1]-1):(vox[1]+1)),
-  ((vox[2]-1):(vox[2]+1)),
-  ((vox[3]-1):(vox[3]+1))
-  )
+  #voxrng <- c(
+  #((vox[1]-1):(vox[1]+1)),
+  #((vox[2]-1):(vox[2]+1)),
+  #((vox[3]-1):(vox[3]+1))
+  #)
 
-  val <- get_val_nifti(img, voxrng)
+  val <- get_val_nifti(img, vox)
     
   #rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
   #              vox[2]-1, ":", vox[2]+1, " ",
