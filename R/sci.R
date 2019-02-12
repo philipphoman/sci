@@ -304,7 +304,7 @@ extract_roi_val <- function(vox, img) {
   #((vox[3]-1):(vox[3]+1))
   #)
 
-  val <- get_val_nifti(img, vox)
+  val <- get_val_nifti(vox, img)
     
   #rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
   #              vox[2]-1, ":", vox[2]+1, " ",
