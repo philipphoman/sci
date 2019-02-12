@@ -4,7 +4,7 @@
 \alias{extract_roi_val}
 \title{extract_roi_val}
 \usage{
-extract_roi_val(vox, filename)
+extract_roi_val(vox, img)
 }
 \arguments{
 \item{vox}{N x 3 matrix of voxel coordinates to use for regions of

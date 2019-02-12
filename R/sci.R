@@ -135,8 +135,6 @@ load_params <- function() {
                       img=system.file("data/nii/2mm",
                                       paste0(seeds, ".nii.gz"),
                                       package="sci"))
-  imgdf$img <- as.character(imgdf$img)
-  imgdf$seed <- as.character(imgdf$seed)
                                                   
   #sapply(imgdf$img, function(x) system(paste0("gunzip ", x))) 
 
@@ -279,7 +277,7 @@ parse_afni_cmd <- function(params=" -quiet -ibox") {
 #' @export
 #' @examples
 #' extract_roi_val()
-extract_roi_val <- function(vox, filename) {
+extract_roi_val <- function(vox, img) {
   #
   # extract voxel roi value using afni's 3dmaskave
 
@@ -298,28 +296,6 @@ extract_roi_val <- function(vox, filename) {
 
 
   afni_3dmaskave <- parse_afni_cmd()
-
-
-  #voxrng <- c(
-  #((vox[1]-1):(vox[1]+1)),
-  #((vox[2]-1):(vox[2]+1)),
-  #((vox[3]-1):(vox[3]+1))
-  #)
-
-  #cat(paste0("extracting values for ",
-  #           vox[1], ", ",
-  #           vox[2], ", ",
-  #           vox[3], " from image ", filename, "..."))
-  #voxrange <- c(c(vox[1]-1, vox[1]+1),
-  #              c(vox[2]-1, vox[2]+1),
-  #              c(vox[3]-1, vox[3]+1),
-  #              1:1)
-  #val <- get_val_nifti(read_nifti(filename),
-  #                     c(vox[1]-1, vox[1]+1),
-  #                     c(vox[2]-1, vox[2]+1),
-  #                     c(vox[3]-1, vox[3]+1),
-  #                     c(1, 1))
-  #cat("done\n")
     
   rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
                 vox[2]-1, ":", vox[2]+1, " ",
@@ -340,62 +316,9 @@ extract_roi_val <- function(vox, filename) {
 #' This function runs the SCI calculation using the example parameters
 #' provided with the package
 #' @export
-run_example <- function(params=NULL) {
-  if(is.null(params)) {
-    params <- load_params()
-  }
-  
+run_example <- function() {
+  params <- load_params()
   out <- calc_sci(params$imgdf, params$mnidf, params$normdf,
                   params$weights)
   return(out)
-}
-
-#' read_nifti
-#'
-#' This function reads a nifti image using the fmri library in R
-#' @param filename filename of the nifti image (can be compressed)
-#' @export
-read_nifti <- function(filename) {
-  if(grepl("nii.gz", filename)) {
-    tmpfilename <- paste0("/tmp/", randstr(1), ".nii")
-    tmpfilename.gz <- paste0(tmpfilename, ".gz")
-    file.copy(filename, tmpfilename.gz) 
-    bytestread <- R.utils::gunzip(tmpfilename.gz, tmpfilename)
-  } else {
-    tmpfilename <- filename
-  }
-  img <- fmri::read.NIFTI(tmpfilename)
-  return(img)
-}
-
-
-#' get_val_nifti
-#'
-#' This function extracts a voxel value from a nifti object using the
-#' fmri library in R
-#' @param img nifti object
-#' @param vox1r x voxel range 
-#' @param vox2r y voxel range 
-#' @param vox3r z voxel range 
-#' @param vox4r t voxel range 
-#' @export
-get_val_nifti <- function(img, vox1r, vox2r, vox3r, vox4r) {
-  #m <- fmri::extract.data(img)
-  #val <- m[vox[1], vox[2], vox[3], 1]
-  r <- fmri::cutroi(img, vox1r, vox2r, vox3r, vox4r)
-  val <- mean(fmri::extract.data(r))
-  return(val)
-}
-
-
-#' randstr
-#'
-#' This function (from https://stackoverflow.com/questions/42734547/)
-#' will produce a random string
-#' @param n number of strings
-#' @export
-randstr <- function(n = 1) {
-  a <- do.call(paste0, replicate(5, sample(LETTERS, n, TRUE), FALSE))
-  paste0(a, sprintf("%04d", sample(9999, n, TRUE)),
-         sample(LETTERS, n, TRUE))
 }

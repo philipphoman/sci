@@ -4,7 +4,7 @@
 \alias{run_example}
 \title{run_example}
 \usage{
-run_example(params = NULL)
+run_example()
 }
 \description{
 This function runs the SCI calculation using the example parameters
