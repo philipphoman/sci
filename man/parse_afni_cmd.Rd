@@ -4,7 +4,7 @@
 \alias{parse_afni_cmd}
 \title{parse_afni_cmd}
 \usage{
-parse_afni_cmd(params = " -ibox")
+parse_afni_cmd(params = " -quiet -ibox")
 }
 \arguments{
 \item{params}{string of options passed to 3dmaskave (defaults to
