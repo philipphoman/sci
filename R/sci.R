@@ -351,7 +351,7 @@ read_nifti <- function(filename) {
 #' @export
 get_val_nifti <- function(img, vox) {
   m <- fmri::extract.data(img)
-  val <- m[vox, 1]
+  val <- m[vox[1], vox[2], vox[3], 1]
   return(val)
 }
 
