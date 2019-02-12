@@ -282,31 +282,40 @@ extract_roi_val <- function(vox, img) {
   # extract voxel roi value using afni's 3dmaskave
 
   # check if afni is installed
-  if (!has_afni()) {
-    cat("afni not installed!\n")
-    return(-1)
-  }
+  #if (!has_afni()) {
+  #  cat("afni not installed!\n")
+  #  return(-1)
+  #}
 
   # defaut afni location
-  afni_bin <- "/usr/local/opt/afni/afni"
+  #afni_bin <- "/usr/local/opt/afni/afni"
 
   #afni_3dmaskave <- paste0(ifelse(file.exists(afni_bin),
   #                         "/usr/local/opt/afni/3dmaskave",
   #                         gsub("[\r\n]", "", which_afni())), " -ibox")
 
 
-  afni_3dmaskave <- parse_afni_cmd()
+  #afni_3dmaskave <- parse_afni_cmd()
+
+
+  voxrng <- c(
+  ((vox[1]-1):(vox[1]+1)),
+  ((vox[2]-1):(vox[2]+1)),
+  ((vox[3]-1):(vox[3]+1))
+  )
+
+  val <- get_val_nifti(img, voxrng)
     
-  rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
-                vox[2]-1, ":", vox[2]+1, " ",
-                vox[3]-1, ":", vox[3]+1, " ")
-  cmd <- paste0(afni_3dmaskave, " ", rng, img)
+  #rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
+  #              vox[2]-1, ":", vox[2]+1, " ",
+  #              vox[3]-1, ":", vox[3]+1, " ")
+  #cmd <- paste0(afni_3dmaskave, " ", rng, img)
   #print(cmd)
   # run the command
-  out <- system(cmd, intern=TRUE)
+  #out <- system(cmd, intern=TRUE)
 
   # split and transform the output string
-  val <- as.numeric(strsplit(out, split=" ")[[1]][1])
+  #val <- as.numeric(strsplit(out, split=" ")[[1]][1])
 
   return(val)
 }
