@@ -333,7 +333,7 @@ read_nifti <- function(filename) {
     tmpfilename <- paste0("/tmp/", randstr(1), ".nii")
     tmpfilename.gz <- paste0(tmpfilename, ".gz")
     file.copy(filename, tmpfilename.gz) 
-    bytestread <- R.utils::gunzip(tmfilename.gz, tmpfilename)
+    bytestread <- R.utils::gunzip(tmpfilename.gz, tmpfilename)
   } else {
     tmpfilename <- filename
   }
