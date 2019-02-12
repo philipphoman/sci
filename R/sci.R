@@ -340,8 +340,11 @@ extract_roi_val <- function(vox, filename) {
 #' This function runs the SCI calculation using the example parameters
 #' provided with the package
 #' @export
-run_example <- function() {
-  params <- load_params()
+run_example <- function(params=NULL) {
+  if(is.null(params)) {
+    params <- load_params()
+  }
+  
   out <- calc_sci(params$imgdf, params$mnidf, params$normdf,
                   params$weights)
   return(out)
