@@ -284,20 +284,20 @@ extract_roi_val <- function(vox, filename) {
   # extract voxel roi value using afni's 3dmaskave
 
   # check if afni is installed
-  #if (!has_afni()) {
-  #  cat("afni not installed!\n")
-  #  return(-1)
-  #}
+  if (!has_afni()) {
+    cat("afni not installed!\n")
+    return(-1)
+  }
 
   # defaut afni location
-  #afni_bin <- "/usr/local/opt/afni/afni"
+  afni_bin <- "/usr/local/opt/afni/afni"
 
   #afni_3dmaskave <- paste0(ifelse(file.exists(afni_bin),
   #                         "/usr/local/opt/afni/3dmaskave",
   #                         gsub("[\r\n]", "", which_afni())), " -ibox")
 
 
-  #afni_3dmaskave <- parse_afni_cmd()
+  afni_3dmaskave <- parse_afni_cmd()
 
 
   #voxrng <- c(
@@ -306,31 +306,31 @@ extract_roi_val <- function(vox, filename) {
   #((vox[3]-1):(vox[3]+1))
   #)
 
-  cat(paste0("extracting values for ",
-             vox[1], ", ",
-             vox[2], ", ",
-             vox[3], " from image ", filename, "..."))
+  #cat(paste0("extracting values for ",
+  #           vox[1], ", ",
+  #           vox[2], ", ",
+  #           vox[3], " from image ", filename, "..."))
   #voxrange <- c(c(vox[1]-1, vox[1]+1),
   #              c(vox[2]-1, vox[2]+1),
   #              c(vox[3]-1, vox[3]+1),
   #              1:1)
-  val <- get_val_nifti(read_nifti(filename),
-                       c(vox[1]-1, vox[1]+1),
-                       c(vox[2]-1, vox[2]+1),
-                       c(vox[3]-1, vox[3]+1),
-                       c(1, 1))
-  cat("done\n")
+  #val <- get_val_nifti(read_nifti(filename),
+  #                     c(vox[1]-1, vox[1]+1),
+  #                     c(vox[2]-1, vox[2]+1),
+  #                     c(vox[3]-1, vox[3]+1),
+  #                     c(1, 1))
+  #cat("done\n")
     
-  #rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
-  #              vox[2]-1, ":", vox[2]+1, " ",
-  #              vox[3]-1, ":", vox[3]+1, " ")
-  #cmd <- paste0(afni_3dmaskave, " ", rng, img)
+  rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
+                vox[2]-1, ":", vox[2]+1, " ",
+                vox[3]-1, ":", vox[3]+1, " ")
+  cmd <- paste0(afni_3dmaskave, " ", rng, img)
   #print(cmd)
   # run the command
-  #out <- system(cmd, intern=TRUE)
+  out <- system(cmd, intern=TRUE)
 
   # split and transform the output string
-  #val <- as.numeric(strsplit(out, split=" ")[[1]][1])
+  val <- as.numeric(strsplit(out, split=" ")[[1]][1])
 
   return(val)
 }
