@@ -135,6 +135,8 @@ load_params <- function() {
                       img=system.file("data/nii/2mm",
                                       paste0(seeds, ".nii.gz"),
                                       package="sci"))
+  imgdf$img <- as.character(imdf$img)
+  imgdf$seed <- as.character(imdf$seed)
                                                   
   #sapply(imgdf$img, function(x) system(paste0("gunzip ", x))) 
 
