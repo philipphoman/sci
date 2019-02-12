@@ -330,7 +330,7 @@ run_example <- function() {
 #' @export
 read_nifti <- function(filename) {
   if(grepl("nii.gz", filename)) {
-    tmpfilename <- paste0("/tmp/", randstr(), ".nii")
+    tmpfilename <- paste0("/tmp/", randstr(1), ".nii")
     bytestread <- R.utils::gunzip(filename, tmpfilename)
   } else {
     tmpfilename <- filename
@@ -358,9 +358,9 @@ get_val_nifti <- function(img, vox) {
 #'
 #' This function (from https://stackoverflow.com/questions/42734547/)
 #' will produce a random string
-#' @param n number of samples
+#' @param n number of strings
 #' @export
-randstr <- function(n = 5000) {
+randstr <- function(n = 1) {
   a <- do.call(paste0, replicate(5, sample(LETTERS, n, TRUE), FALSE))
   paste0(a, sprintf("%04d", sample(9999, n, TRUE)),
          sample(LETTERS, n, TRUE))

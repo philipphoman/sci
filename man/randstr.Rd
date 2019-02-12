@@ -4,10 +4,10 @@
 \alias{randstr}
 \title{randstr}
 \usage{
-randstr(n = 5000)
+randstr(n = 1)
 }
 \arguments{
-\item{n}{number of samples}
+\item{n}{number of strings}
 }
 \description{
 This function (from https://stackoverflow.com/questions/42734547/)
