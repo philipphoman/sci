@@ -279,7 +279,7 @@ parse_afni_cmd <- function(params=" -quiet -ibox") {
 #' @export
 #' @examples
 #' extract_roi_val()
-extract_roi_val <- function(vox, img) {
+extract_roi_val <- function(vox, filename) {
   #
   # extract voxel roi value using afni's 3dmaskave
 
@@ -306,12 +306,19 @@ extract_roi_val <- function(vox, img) {
   #((vox[3]-1):(vox[3]+1))
   #)
 
-  cat(paste0("extracting values for ", vox, "..."))
-  voxrange <- c(c(vox[1]-1, vox[1]+1),
-                c(vox[2]-1, vox[2]+1),
-                c(vox[3]-1, vox[3]+1),
-                1:1)
-  val <- get_val_nifti(read_nifti(img), voxrange)
+  cat(paste0("extracting values for ",
+             vox[1], ", ",
+             vox[2], ", ",
+             vox[3], " from image ", filename, "..."))
+  #voxrange <- c(c(vox[1]-1, vox[1]+1),
+  #              c(vox[2]-1, vox[2]+1),
+  #              c(vox[3]-1, vox[3]+1),
+  #              1:1)
+  val <- get_val_nifti(read_nifti(filename),
+                       c(vox[1]-1, vox[1]+1),
+                       c(vox[2]-1, vox[2]+1),
+                       c(vox[3]-1, vox[3]+1),
+                       c(1, 1))
   cat("done\n")
     
   #rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
