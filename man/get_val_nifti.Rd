@@ -4,7 +4,7 @@
 \alias{get_val_nifti}
 \title{get_val_nifti}
 \usage{
-get_val_nifti(img, vox)
+get_val_nifti(img, voxrange)
 }
 \arguments{
 \item{img}{nifti object}

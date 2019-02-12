@@ -306,7 +306,12 @@ extract_roi_val <- function(vox, img) {
   #((vox[3]-1):(vox[3]+1))
   #)
 
-  val <- get_val_nifti(read_nifti(img), vox)
+  cat("extracting values...")
+  voxrange <- c(c(vox[1]-1, vox[1]+1),
+                c(vox[2]-1, vox[2]+1),
+                c(vox[3]-1, vox[3]+1))
+  val <- get_val_nifti(read_nifti(img), voxrange)
+  cat("done\n")
     
   #rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
   #              vox[2]-1, ":", vox[2]+1, " ",
@@ -360,13 +365,10 @@ read_nifti <- function(filename) {
 #' @param img nifti object
 #' @param vox voxel coordinates
 #' @export
-get_val_nifti <- function(img, vox) {
+get_val_nifti <- function(img, voxrange) {
   #m <- fmri::extract.data(img)
   #val <- m[vox[1], vox[2], vox[3], 1]
-  r <- fmri::cutroi(img,
-                    c(vox[1]-1, vox[1]+1),
-                    c(vox[2]-1, vox[2]+1),
-                    c(vox[3]-1, vox[3]+1))
+  r <- fmri::cutroi(img, voxrange)
   val <- mean(fmri::extract.data(r))
   return(val)
 }
