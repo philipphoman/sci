@@ -322,3 +322,46 @@ run_example <- function() {
                   params$weights)
   return(out)
 }
+
+#' read_nifti
+#'
+#' This function reads a nifti image using the fmri library in R
+#' @param filename filename of the nifti image (can be compressed)
+#' @export
+read_nifti <- function(filename) {
+  if(grepl("nii.gz", filename)) {
+    tmpfilename <- paste0("/tmp/", randstr(), ".nii")
+    bytestread <- R.utils::gunzip(filename, tmpfilename)
+  } else {
+    tmpfilename <- filename
+  }
+  img <- fmri::read.NIFTI(tmpfilename)
+  return(img)
+}
+
+
+#' get_val_nifti
+#'
+#' This function extracts a voxel value from a nifti object using the
+#' fmri library in R
+#' @param img nifti object
+#' @param vox voxel coordinates
+#' @export
+get_val_nifti <- function(img, vox) {
+  m <- fmri::extract.data(img)
+  val <- m[vox, 1]
+  return(val)
+}
+
+
+#' randstr
+#'
+#' This function (from https://stackoverflow.com/questions/42734547/)
+#' will produce a random string
+#' @param n number of samples
+#' @export
+randstr <- function(n = 5000) {
+  a <- do.call(paste0, replicate(5, sample(LETTERS, n, TRUE), FALSE))
+  paste0(a, sprintf("%04d", sample(9999, n, TRUE)),
+         sample(LETTERS, n, TRUE))
+}
