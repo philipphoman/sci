@@ -359,8 +359,13 @@ read_nifti <- function(filename) {
 #' @param vox voxel coordinates
 #' @export
 get_val_nifti <- function(img, vox) {
-  m <- fmri::extract.data(img)
-  val <- m[vox[1], vox[2], vox[3], 1]
+  #m <- fmri::extract.data(img)
+  #val <- m[vox[1], vox[2], vox[3], 1]
+  r <- fmri::cutroi(img,
+                    c(vox[1]-1, vox[1]+1),
+                    c(vox[2]-1, vox[2]+1),
+                    c(vox[3]-1, vox[3]+1))
+  val <- mean(fmri::extract.data(r))
   return(val)
 }
 
