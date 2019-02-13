@@ -222,7 +222,7 @@ has_afni <- function() {
   # checks if afni is installed
 
   # standard path to afni
-  pth <- "/usr/local/opt/afni"
+  pth <- "/usr/local/opt/afni:~/abin"
 
   cmd <- paste0("export PATH=$PATH:", pth, " && which 3dmaskave")
   out <- system(cmd, intern=FALSE)
