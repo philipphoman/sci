@@ -17,7 +17,10 @@ images to calculate the SCI on.}
 \item{weights}{N x 1 vector to use for weighting.}
 }
 \description{
-This function calculates the striatal connectivity index (sci).
+This function calculates the striatal connectivity index (sci). In
+the original paper (Sarpal 2016, Am J Psychiatry), there were K=12
+seeds and N=91 connections. The function, however, can calculate the
+sci for various combinations of K seeds and N connections.
 }
 \examples{
 calc_sci()

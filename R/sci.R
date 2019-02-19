@@ -1,6 +1,9 @@
 #' calc_sci 
 #'
-#' This function calculates the striatal connectivity index (sci).
+#' This function calculates the striatal connectivity index (sci). In
+#' the original paper (Sarpal 2016, Am J Psychiatry), there were K=12
+#' seeds and N=91 connections. The function, however, can calculate the
+#' sci for various combinations of K seeds and N connections.
 #'
 #' @param imgdf K x 2 data frame of K seeds and their respective brain
 #'     images to calculate the SCI on.
