@@ -4,7 +4,7 @@
 \alias{calc_sci}
 \title{calc_sci}
 \usage{
-calc_sci(imgdf, mnidf, normdf = NULL, weights = 1)
+calc_sci(imgdf, mnidf, normdf = NULL, weights = 1, rng = 1)
 }
 \arguments{
 \item{imgdf}{K x 2 data frame of K seeds and their respective brain
@@ -15,6 +15,10 @@ images to calculate the SCI on.}
 \item{normdf}{N x 2 data frame to use for normalization.}
 
 \item{weights}{N x 1 vector to use for weighting.}
+
+\item{rng}{1 x 1 vector for how many voxels to additionally include
+in the ROI extraction. The default value of 1 means: target voxel
++/- 1 voxel, i.e., a box of 3 x 3 x 3 = 27 voxels in total}
 }
 \description{
 This function calculates the striatal connectivity index (sci). In

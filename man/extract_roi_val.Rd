@@ -4,13 +4,16 @@
 \alias{extract_roi_val}
 \title{extract_roi_val}
 \usage{
-extract_roi_val(vox, img)
+extract_roi_val(vox, img, rng = 1)
 }
 \arguments{
 \item{vox}{N x 3 matrix of voxel coordinates to use for regions of
 interest.}
 
 \item{img}{a brain image filename.}
+
+\item{rng}{1 x 1 vector for the additional range of voxels to
+extract.}
 }
 \description{
 This function extracts the roi value of a given coordinate (range)

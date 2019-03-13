@@ -10,30 +10,27 @@
 #' @param mnidf N x 4 data frame of K seeds and N MNI coordinates.
 #' @param normdf N x 2 data frame to use for normalization.
 #' @param weights N x 1 vector to use for weighting.
+#' @param rng 1 x 1 vector for how many voxels to additionally include
+#'     in the ROI extraction. The default value of 1 means: target voxel
+#'     +/- 1 voxel, i.e., a box of 3 x 3 x 3 = 27 voxels in total
 #' @keywords striatum, functional connectivity, correlation
 #' @export
 #' @examples
 #' calc_sci()
 calc_sci <- function(imgdf, mnidf, normdf=NULL,
-                     weights=1) {
+                     weights=1, rng=1) {
   #
   # calculate the striatal connectivity index
 
   # get all seeds
   seeds <- unique(mnidf$seed)
 
-  # get all seeds' connections
-  #connlist <- lapply(seeds, function(x) get_seed_connection(mnidf, x))
-
-  #for (i in 1:nrow(voxdf)) {
-  #  extract_roi_val(voxdf[i, 2:4], imgdf$img[imgdf$seed==voxdf[i, 1]])
-  #}
-
-  # extract all 91 values from the rois
+  # extract all values from the rois
   vals <- unlist(lapply(seeds, function(x) {
     sapply(as.list(data.frame(t(get_seed_connections(mnidf, x)))),
            function(y) extract_roi_val(mni2vox(y),
-                                       imgdf$img[imgdf$seed==x]))
+                                       imgdf$img[imgdf$seed==x],
+                                       rng))
   }))
 
     
@@ -276,11 +273,13 @@ parse_afni_cmd <- function(params=" -quiet -ibox") {
 #' @param vox N x 3 matrix of voxel coordinates to use for regions of
 #'     interest.
 #' @param img a brain image filename.
+#' @param rng 1 x 1 vector for the additional range of voxels to
+#'     extract.
 #' @keywords voxel, extraction, brain imaging, AFNI
 #' @export
 #' @examples
 #' extract_roi_val()
-extract_roi_val <- function(vox, img) {
+extract_roi_val <- function(vox, img, rng=1) {
   #
   # extract voxel roi value using afni's 3dmaskave
 
@@ -300,10 +299,10 @@ extract_roi_val <- function(vox, img) {
 
   afni_3dmaskave <- parse_afni_cmd()
     
-  rng <- paste0(vox[1]-1, ":", vox[1]+1, " ", 
-                vox[2]-1, ":", vox[2]+1, " ",
-                vox[3]-1, ":", vox[3]+1, " ")
-  cmd <- paste0(afni_3dmaskave, " ", rng, img)
+  box <- paste0(vox[1]-rng, ":", vox[1]+rng, " ", 
+                vox[2]-rng, ":", vox[2]+rng, " ",
+                vox[3]-rng, ":", vox[3]+rng, " ")
+  cmd <- paste0(afni_3dmaskave, " ", box, img)
   #print(cmd)
   # run the command
   out <- system(cmd, intern=TRUE)
